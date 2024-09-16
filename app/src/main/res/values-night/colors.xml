@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cores principais no modo escuro -->
+    <color name="black">#FFFFFFFF</color> <!-- Invertido: preto para branco -->
+    <color name="white">#FF000000</color> <!-- Invertido: branco para preto -->
+
+    <!-- Cores para textos e ícones no modo escuro -->
+    <color name="textPrimary">#FFFFFFFF</color> <!-- Texto principal em branco -->
+    <color name="textSecondary">#FFB0B0B0</color> <!-- Texto secundário mais claro -->
+    <color name="iconColor">#FFFFFFFF</color> <!-- Ícones em branco -->
+
+    <!-- Cor de fundo (para o modo escuro) -->
+    <color name="colorBackground">#FF000000</color> <!-- Fundo preto no modo escuro -->
+</resources>

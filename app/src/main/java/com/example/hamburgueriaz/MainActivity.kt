@@ -341,30 +341,28 @@ fun ResumoPedido(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Exibir o valor total e o botão "Enviar Pedido"
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            // Exibir o valor total
+            Text(
+                text = "Total de Itens: $totalItens\nValor Total: R$ ${String.format("%.2f", total)}",
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Botão "Enviar Pedido" abaixo do total de itens e valor total
+            Button(
+                onClick = { /* Ação de enviar pedido */ },
+                modifier = Modifier.fillMaxWidth() // Ocupa a largura total
             ) {
                 Text(
-                    text = "Total de Itens: $totalItens\nValor Total: R$ ${String.format("%.2f", total)}",
-                    style = MaterialTheme.typography.titleMedium
+                    text = "Enviar Pedido",
+                    textAlign = TextAlign.Center // Centralizar o texto dentro do botão
                 )
-
-                Button(
-                    onClick = { /* Ação de enviar pedido */ },
-                    modifier = Modifier.padding(start = 16.dp)
-                ) {
-                    Text(
-                        text = "Enviar Pedido",
-                        textAlign = TextAlign.Center // Centralizar o texto dentro do botão
-                    )
-                }
             }
         }
     }
 }
+
 
 
 

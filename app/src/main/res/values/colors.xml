@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Cores existentes -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
+    <!-- Cores principais -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Cores para textos e ícones -->
+    <color name="textPrimary">#FF000000</color> <!-- Cor do texto principal (preto) -->
+    <color name="textSecondary">#FF757575</color> <!-- Cor do texto secundário (cinza) -->
+    <color name="iconColor">#FF000000</color> <!-- Cor dos ícones (preto) -->
+
+    <!-- Cor de fundo (para o modo claro) -->
+    <color name="colorBackground">#FFFFFFFF</color> <!-- Fundo branco no modo claro -->
 </resources>
