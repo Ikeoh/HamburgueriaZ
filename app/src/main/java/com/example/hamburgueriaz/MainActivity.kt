@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
                                 contentDescription = "Promoção 25% off",
                                 modifier = Modifier
                                     .fillMaxWidth() // O banner ocupa toda a largura
-                                    .height(250.dp) // Altura ajustada para o banner
+                                    .height(220.dp) // Altura ajustada para o banner
                             )
 
                             // Conteúdo do cardápio abaixo do banner
@@ -322,10 +322,20 @@ fun ResumoPedido(
     val gokuTotal = gokuQuantity * gokuPrice
     val vegetaTotal = vegetaQuantity * vegetaPrice
     val piccoloTotal = piccoloQuantity * piccoloPrice
-    val total = gokuTotal + vegetaTotal + piccoloTotal
+    val totalSemDesconto = gokuTotal + vegetaTotal + piccoloTotal
     val totalItens = gokuQuantity + vegetaQuantity + piccoloQuantity
 
     val isPedidoValido = totalItens > 0 // Valida se há itens no pedido
+
+    // Calcular o desconto de 25% se 2 ou mais lanches forem selecionados
+    val desconto = if (totalItens >= 2) {
+        totalSemDesconto * 0.25
+    } else {
+        0.0
+    }
+
+    // Calcular o total final a pagar
+    val totalAPagar = totalSemDesconto - desconto
 
     Card(
         modifier = Modifier
@@ -351,6 +361,7 @@ fun ResumoPedido(
                 color = Color.Gray
             )
 
+            // Exibir o resumo dos lanches selecionados
             if (gokuQuantity > 0) {
                 Text(text = "Goku: $gokuQuantity x R$ ${String.format("%.2f", gokuPrice)} = R$ ${String.format("%.2f", gokuTotal)}")
             }
@@ -363,13 +374,20 @@ fun ResumoPedido(
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Exibir o valor total sem desconto, o desconto aplicado e o total final a pagar
             Text(
-                text = "Total de Itens: $totalItens\nValor Total: R$ ${String.format("%.2f", total)}",
+                text = """
+                    Total de Itens: $totalItens
+                    Valor do Pedido: R$ ${String.format("%.2f", totalSemDesconto)}
+                    Desconto Aplicado: R$ ${String.format("%.2f", desconto)}
+                    Total a Pagar: R$ ${String.format("%.2f", totalAPagar)}
+                """.trimIndent(),
                 style = MaterialTheme.typography.titleMedium
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Botão "Enviar Pedido" abaixo do total de itens e valor total
             Button(
                 onClick = { enviarMensagemWhatsApp(context) }, // Passa o contexto para a função
                 modifier = Modifier.fillMaxWidth(),
@@ -383,7 +401,6 @@ fun ResumoPedido(
         }
     }
 }
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
