@@ -1,6 +1,6 @@
 # HamburgueriaZ
 
-**Projeto desenvolvido como aula prática da disciplina de "Desenvolvimento Mobile"** no curso de graduação de Engenharia de Software Ampli - Ahanguera.
+Projeto desenvolvido como aula prática da disciplina de **"Desenvolvimento Mobile"** no curso de graduação de Engenharia de Software Ampli - Ahanguera.
 
 **HamburgueriaZ** é um aplicativo de pedidos de lanches, desenvolvido em Kotlin utilizando **Jetpack Compose** para a interface de usuário. O app permite aos usuários selecionar lanches do cardápio, calcular automaticamente o preço total com desconto especial para pedidos maiores e enviar o pedido via WhatsApp.
 
