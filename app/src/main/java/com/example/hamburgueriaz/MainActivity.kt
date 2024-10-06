@@ -66,19 +66,19 @@ class MainActivity : ComponentActivity() {
                             title = {
                                 Text(
                                     "HamburgueriaZ",
-                                    color = Color.White, // Cor do texto branco para contraste
-                                    textAlign = TextAlign.Center // Centraliza o texto
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center
                                 )
                             },
                             colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = Color.Black // Cor preta para o AppBar
+                                containerColor = Color.Black
                             ),
                             actions = {
-                                IconButton(onClick = { /* Ação do ícone */ }) {
+                                IconButton(onClick = { }) {
                                     Image(
-                                        painter = painterResource(id = R.drawable.hamburgueriaz_icon), // Referência ao ícone
+                                        painter = painterResource(id = R.drawable.hamburgueriaz_icon),
                                         contentDescription = "Ícone Hamburguer",
-                                        modifier = Modifier.size(32.dp) // Defina o tamanho do ícone
+                                        modifier = Modifier.size(32.dp)
                                     )
                                 }
                             }
@@ -91,11 +91,11 @@ class MainActivity : ComponentActivity() {
                         ) {
                             // Exibir o banner promocional
                             Image(
-                                painter = painterResource(id = R.drawable.banner_promocao), // O banner salvo
+                                painter = painterResource(id = R.drawable.banner_promocao),
                                 contentDescription = "Promoção 25% off",
                                 modifier = Modifier
-                                    .fillMaxWidth() // O banner ocupa toda a largura
-                                    .height(220.dp) // Altura ajustada para o banner
+                                    .fillMaxWidth()
+                                    .height(220.dp)
                             )
 
                             // Conteúdo do cardápio abaixo do banner
@@ -133,27 +133,27 @@ fun Cardapio() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp), // Espaçamento externo ao redor do Card
-        shape = RoundedCornerShape(16.dp), // Borda arredondada
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0)), // Cor de fundo suave
-        elevation = CardDefaults.cardElevation(8.dp) // Elevação para dar um efeito de sombra leve
+            .padding(16.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0)),
+        elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .verticalScroll(rememberScrollState()), // Adiciona a rolagem vertical
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Top
         ) {
             Text(
                 text = "Cardápio de Lanches",
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = 8.dp) // Reduzi o padding para a linha ficar mais próxima do título
+                modifier = Modifier.padding(bottom = 8.dp)
             )
             HorizontalDivider(
-                modifier = Modifier.padding(bottom = 16.dp), // Espaçamento abaixo da linha
-                thickness = 2.dp,  // Espessura da linha
-                color = Color.Gray // Cor da linha
+                modifier = Modifier.padding(bottom = 16.dp),
+                thickness = 2.dp,
+                color = Color.Gray
             )
 
             // Card para Goku
@@ -166,7 +166,7 @@ fun Cardapio() {
                 quantity = gokuQuantity,
                 onIncrement = { gokuQuantity++ },
                 onDecrement = { if (gokuQuantity > 0) gokuQuantity-- },
-                onResetQuantity = { gokuQuantity = 0 } // Zerar quantidade quando desmarcado
+                onResetQuantity = { gokuQuantity = 0 }
             )
 
             // Card para Vegeta
@@ -179,7 +179,7 @@ fun Cardapio() {
                 quantity = vegetaQuantity,
                 onIncrement = { vegetaQuantity++ },
                 onDecrement = { if (vegetaQuantity > 0) vegetaQuantity-- },
-                onResetQuantity = { vegetaQuantity = 0 } // Zerar quantidade quando desmarcado
+                onResetQuantity = { vegetaQuantity = 0 }
             )
 
             // Card para Piccolo
@@ -192,7 +192,7 @@ fun Cardapio() {
                 quantity = piccoloQuantity,
                 onIncrement = { piccoloQuantity++ },
                 onDecrement = { if (piccoloQuantity > 0) piccoloQuantity-- },
-                onResetQuantity = { piccoloQuantity = 0 } // Zerar quantidade quando desmarcado
+                onResetQuantity = { piccoloQuantity = 0 }
             )
 
             // Resumo do pedido
@@ -220,7 +220,7 @@ fun LancheItem(
     quantity: Int,
     onIncrement: () -> Unit,
     onDecrement: () -> Unit,
-    onResetQuantity: () -> Unit // Função para resetar a quantidade
+    onResetQuantity: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         // Checkbox e nome do lanche
@@ -233,7 +233,7 @@ fun LancheItem(
                 onCheckedChange = {
                     onCheckedChange(it)
                     if (!it) {
-                        onResetQuantity() // Zerar a quantidade ao desmarcar o lanche
+                        onResetQuantity()
                     }
                 }
             )
@@ -317,7 +317,7 @@ fun ResumoPedido(
     vegetaPrice: Double,
     piccoloPrice: Double
 ) {
-    val context = LocalContext.current // Pegue o contexto da Activity
+    val context = LocalContext.current
 
     val gokuTotal = gokuQuantity * gokuPrice
     val vegetaTotal = vegetaQuantity * vegetaPrice
@@ -325,7 +325,7 @@ fun ResumoPedido(
     val totalSemDesconto = gokuTotal + vegetaTotal + piccoloTotal
     val totalItens = gokuQuantity + vegetaQuantity + piccoloQuantity
 
-    val isPedidoValido = totalItens > 0 // Valida se há itens no pedido
+    val isPedidoValido = totalItens > 0
 
     // Calcular o desconto de 25% se 2 ou mais lanches forem selecionados
     val desconto = if (totalItens >= 2) {
@@ -389,13 +389,13 @@ fun ResumoPedido(
 
             // Botão "Enviar Pedido" abaixo do total de itens e valor total
             Button(
-                onClick = { enviarMensagemWhatsApp(context) }, // Passa o contexto para a função
+                onClick = { enviarMensagemWhatsApp(context) },
                 modifier = Modifier.fillMaxWidth(),
-                enabled = isPedidoValido // Botão é habilitado somente se houver itens no pedido
+                enabled = isPedidoValido
             ) {
                 Text(
                     text = "Enviar Pedido",
-                    textAlign = TextAlign.Center // Centralizar o texto dentro do botão
+                    textAlign = TextAlign.Center
                 )
             }
         }
@@ -414,19 +414,19 @@ fun GreetingPreview() {
                     title = {
                         Text(
                             "HamburgueriaZ",
-                            color = Color.White, // Texto branco para contraste
-                            textAlign = TextAlign.Center // Centraliza o texto
+                            color = Color.White,
+                            textAlign = TextAlign.Center
                         )
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.Black // AppBar preta
+                        containerColor = Color.Black
                     ),
                     actions = {
-                        IconButton(onClick = { /* Ação do ícone */ }) {
+                        IconButton(onClick = {  }) {
                             Image(
-                                painter = painterResource(id = R.drawable.hamburgueriaz_icon), // Referência ao ícone
+                                painter = painterResource(id = R.drawable.hamburgueriaz_icon),
                                 contentDescription = "Ícone Hamburguer",
-                                modifier = Modifier.size(32.dp) // Defina o tamanho do ícone
+                                modifier = Modifier.size(32.dp)
                             )
                         }
                     }
@@ -448,9 +448,9 @@ fun enviarMensagemWhatsApp(context: Context) {
     val intent = Intent(Intent.ACTION_VIEW, uri)
 
     try {
-        context.startActivity(intent) // Use o contexto da Activity para chamar startActivity
+        context.startActivity(intent)
     } catch (e: Exception) {
-        e.printStackTrace() // Captura o erro se o WhatsApp não estiver disponível
+        e.printStackTrace()
     }
 }
 
