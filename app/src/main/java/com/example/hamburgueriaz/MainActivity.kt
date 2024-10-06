@@ -1,6 +1,9 @@
 package com.example.hamburgueriaz
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -43,6 +46,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -82,12 +86,27 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Surface(modifier = Modifier.padding(innerPadding)) {
-                        Cardapio()
+                        Column(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            // Exibir o banner promocional
+                            Image(
+                                painter = painterResource(id = R.drawable.banner_promocao), // O banner salvo
+                                contentDescription = "Promoção 25% off",
+                                modifier = Modifier
+                                    .fillMaxWidth() // O banner ocupa toda a largura
+                                    .height(250.dp) // Altura ajustada para o banner
+                            )
+
+                            // Conteúdo do cardápio abaixo do banner
+                            Cardapio()
+                        }
                     }
                 }
             }
         }
     }
+
 }
 
 @Composable
@@ -298,11 +317,15 @@ fun ResumoPedido(
     vegetaPrice: Double,
     piccoloPrice: Double
 ) {
+    val context = LocalContext.current // Pegue o contexto da Activity
+
     val gokuTotal = gokuQuantity * gokuPrice
     val vegetaTotal = vegetaQuantity * vegetaPrice
     val piccoloTotal = piccoloQuantity * piccoloPrice
     val total = gokuTotal + vegetaTotal + piccoloTotal
     val totalItens = gokuQuantity + vegetaQuantity + piccoloQuantity
+
+    val isPedidoValido = totalItens > 0 // Valida se há itens no pedido
 
     Card(
         modifier = Modifier
@@ -328,7 +351,6 @@ fun ResumoPedido(
                 color = Color.Gray
             )
 
-            // Exibir o resumo dos lanches selecionados
             if (gokuQuantity > 0) {
                 Text(text = "Goku: $gokuQuantity x R$ ${String.format("%.2f", gokuPrice)} = R$ ${String.format("%.2f", gokuTotal)}")
             }
@@ -341,7 +363,6 @@ fun ResumoPedido(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Exibir o valor total
             Text(
                 text = "Total de Itens: $totalItens\nValor Total: R$ ${String.format("%.2f", total)}",
                 style = MaterialTheme.typography.titleMedium
@@ -349,10 +370,10 @@ fun ResumoPedido(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botão "Enviar Pedido" abaixo do total de itens e valor total
             Button(
-                onClick = { /* Ação de enviar pedido */ },
-                modifier = Modifier.fillMaxWidth() // Ocupa a largura total
+                onClick = { enviarMensagemWhatsApp(context) }, // Passa o contexto para a função
+                modifier = Modifier.fillMaxWidth(),
+                enabled = isPedidoValido // Botão é habilitado somente se houver itens no pedido
             ) {
                 Text(
                     text = "Enviar Pedido",
@@ -362,10 +383,6 @@ fun ResumoPedido(
         }
     }
 }
-
-
-
-
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -405,3 +422,19 @@ fun GreetingPreview() {
         }
     }
 }
+
+fun enviarMensagemWhatsApp(context: Context) {
+    val numeroTelefone = "5511999999999" // Número do WhatsApp no formato internacional (com DDI e DDD)
+    val mensagem = "Olá! Estou fazendo um pedido na HamburgueriaZ." // Mensagem a ser enviada
+
+    val uri = Uri.parse("https://wa.me/$numeroTelefone?text=${Uri.encode(mensagem)}")
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+
+    try {
+        context.startActivity(intent) // Use o contexto da Activity para chamar startActivity
+    } catch (e: Exception) {
+        e.printStackTrace() // Captura o erro se o WhatsApp não estiver disponível
+    }
+}
+
+

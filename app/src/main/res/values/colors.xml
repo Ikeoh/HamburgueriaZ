@@ -15,7 +15,4 @@
     <color name="textPrimary">#FF000000</color> <!-- Cor do texto principal (preto) -->
     <color name="textSecondary">#FF757575</color> <!-- Cor do texto secundário (cinza) -->
     <color name="iconColor">#FF000000</color> <!-- Cor dos ícones (preto) -->
-
-    <!-- Cor de fundo (para o modo claro) -->
-    <color name="colorBackground">#FFFFFFFF</color> <!-- Fundo branco no modo claro -->
 </resources>
